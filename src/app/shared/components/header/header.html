@@ -6,26 +6,37 @@
         </div>
         <div class="mini-navbar">
             <ul>
+                @if (isLoggedIn()) {
                 <li>
-                    <a href="#">Login</a>
+                    <a routerLink="/profile">{{ currentUser()?.username }}'s profile</a>
                 </li>
                 <li>
-                    <a href="#">Register</a>
+                    <a href="#" (click)="logout()">Logout</a>
                 </li>
+                } @else {
+                <li>
+                    <a routerLink="/login">Login</a>
+                </li>
+                <li>
+                    <a routerLink="/register">Register</a>
+                </li>
+                }
             </ul>
         </div>
     </div>
     <nav>
         <ul>
             <li>
-                <a href="#">Home</a>
+                <a routerLink="/home">Home</a>
             </li>
             <li>
-                <a href="#">Themes</a>
+                <a routerLink="/themes">Themes</a>
             </li>
+            @if (isLoggedIn()) {
             <li>
-                <a href="#">New Theme</a>
+                <a routerLink="/add-theme">New Theme</a>
             </li>
+            }
         </ul>
     </nav>
 </header>

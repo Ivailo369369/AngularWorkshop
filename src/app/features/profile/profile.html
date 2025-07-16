@@ -1,0 +1,17 @@
+<div class="profile">
+    <img src="profile.png" alt="default user">
+    <h3>User Info:</h3>
+    <div class="flex">
+        <p>Username: </p>
+        <p>{{ currentUser()?.username || 'N/A' }}</p>
+    </div>
+    <div class="flex">
+        <p>Email: </p>
+        <p>{{ currentUser()?.email }}</p>
+    </div>
+    <div class="flex">
+        <p>Phone: </p>
+        <p>{{ currentUser()?.phone }}</p>
+    </div>
+    <button class="edit-button" (click)="onEdit()">Edit</button>
+</div>

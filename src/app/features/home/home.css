@@ -1,0 +1,45 @@
+    .welcome {
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .welcome h3 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .welcome p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        color: #666;
+    }
+
+    .logged ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .logged li a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .logged li a:hover {
+        background-color: #0056b3;
+    }
+
+    .logged li a i {
+        font-size: 1.1rem;
+    }

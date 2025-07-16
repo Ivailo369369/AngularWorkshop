@@ -1,0 +1,31 @@
+<div class="new-theme-border">
+    <div class="header-background">
+        <span>New Theme</span>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+        <div class="new-theme-title">
+            <label for="themeName">Title <span class="red">*</span></label>
+            <input [class.input-error]="themeNameError" type="text" name="themeName" id="themeName"
+                [(ngModel)]="themeName" (blur)="validateThemeName()">
+            @if (themeNameError) {
+            <p class="error">
+                {{ themeNameErrorMessage }}
+            </p>
+            }
+        </div>
+        <div class="new-theme-content">
+            <label for="postText">Post <span class="red">*</span></label>
+            <textarea [class.input-error]="postTextError" type="text" name="postText" id="postText" rows="8"
+                class="height" [(ngModel)]="postText" (blur)="validatePostText()"></textarea>
+            @if (postTextError) {
+            <p class="error">
+                {{ postTextErrorMessage }}
+            </p>
+            }
+        </div>
+        <div class="new-theme-buttons">
+            <button type="button" class="cancel" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="public" [disabled]="!isFormValid()">Post</button>
+        </div>
+    </form>
+</div>

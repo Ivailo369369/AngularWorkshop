@@ -101,7 +101,7 @@ justify-content: center;
 .logo-wrap > img {
     height: 15vh;
     margin-right: 3vw;
-    margin-left: -4vw;
+    /* margin-left: -4vw; */
 }
 
 .mini-navbar-wrap {
