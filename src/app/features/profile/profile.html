@@ -1,6 +1,8 @@
 <div class="profile">
     <img src="profile.png" alt="default user">
     <h3>User Info:</h3>
+
+    @if(!isEditMode) {
     <div class="flex">
         <p>Username: </p>
         <p>{{ currentUser()?.username || 'N/A' }}</p>
@@ -14,4 +16,39 @@
         <p>{{ currentUser()?.phone }}</p>
     </div>
     <button class="edit-button" (click)="onEdit()">Edit</button>
+    } @else {
+    <form [formGroup]="profileForm" (ngSubmit)="onSave()">
+        <div class="flex">
+            <p>Username: </p>
+            <div class="input-container">
+                <input [class.input-error]="isUsernameValid" type="text" id="username" formControlName="username">
+                @if (isUsernameValid) {
+                <p class="error">{{ usernameErrorMessage }}
+                <p>
+                    }
+            </div>
+        </div>
+        <div class="flex">
+            <p>Email: </p>
+            <div class="input-container">
+                <input [class.input-error]="isEmailValid" type="email" id="email" formControlName="email">
+                @if (isEmailValid) {
+                <p class="error">{{ emailErrorMessage }}
+                <p>
+                    }
+            </div>
+
+        </div>
+        <div class="flex">
+            <p>Phone: </p>
+            <div class="input-container">
+                <input type="text" id="tel" formControlName="phone">
+            </div>
+        </div>
+        <div class="button-container">
+            <button (click)="onCancel()" type="button" class="red-button">Cancel</button>
+            <button [disabled]="profileForm.invalid" type="submit" class="green-button">Save</button>
+        </div>
+    </form>
+    }
 </div>

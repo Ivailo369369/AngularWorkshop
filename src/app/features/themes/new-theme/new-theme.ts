@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService, PostsService } from '../../../core/services';
+import { AuthService, ThemesService } from '../../../core/services';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -10,46 +10,46 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-theme.css'
 })
 export class NewTheme {
-  private authService = inject(AuthService);
+ private authService = inject(AuthService);
+  private themesService = inject(ThemesService);
   private router = inject(Router);
-  private postsService = inject(PostsService);
 
-  themeName: string = '';
-  postText: string = '';
-  themeNameError: boolean = false;
-  postTextError: boolean = false;
-  themeNameErrorMessage: string = '';
-  postTextErrorMessage: string = '';
+  themeName = '';
+  postText = '';
+  titleError = false;
+  contentError = false;
+  titleErrorMessage = '';
+  contentErrorMessage = '';
 
-  validateThemeName(): void {
+  validateTitle(): void {
     if (!this.themeName) {
-      this.themeNameError = true;
-      this.themeNameErrorMessage = 'Theme name is required.';
+      this.titleError = true;
+      this.titleErrorMessage = 'Theme name is required.';
     } else if (this.themeName.length < 5) {
-      this.themeNameError = true;
-      this.themeNameErrorMessage = 'Theme name must be at least 5 characters long.';
+      this.titleError = true;
+      this.titleErrorMessage = 'Theme name must be at least 5 characters long.';
     } else {
-      this.themeNameError = false;
-      this.themeNameErrorMessage = '';
+      this.titleError = false;
+      this.titleErrorMessage = '';
     }
   }
 
-  validatePostText(): void {
+  validateContent(): void {
     if (!this.postText) {
-      this.postTextError = true;
-      this.postTextErrorMessage = 'The field with your post is required.';
+      this.contentError = true;
+      this.contentErrorMessage = 'The field with your post is required.';
     } else if (this.postText.length < 10) {
-      this.postTextError = true;
-      this.postTextErrorMessage = 'Post must be at least 10 characters long.';
+      this.contentError = true;
+      this.contentErrorMessage = 'Post must be at least 10 characters long.';
     } else {
-      this.postTextError = false;
-      this.postTextErrorMessage = '';
+      this.contentError = false;
+      this.contentErrorMessage = '';
     }
   }
 
   isFormValid(): boolean {
-    return Boolean(this.themeName) && Boolean(this.postText) &&
-      !this.themeNameError && !this.postTextError
+    return Boolean(this.themeName) && Boolean(this.postText) && 
+           !this.titleError && !this.contentError;
   }
 
   onCancel(): void {
@@ -57,29 +57,26 @@ export class NewTheme {
   }
 
   onSubmit(): void {
-    this.validateThemeName();
-    this.validatePostText();
+    this.validateTitle();
+    this.validateContent();
 
     if (this.isFormValid()) {
+      // Create theme object
       const newTheme = {
         themeName: this.themeName,
         postText: this.postText,
         userId: this.authService.getCurrentUserId()
       };
 
-      console.log(newTheme);
-
+      // For now, we'll simulate a successful creation and redirect
+      // In a real app, this would be a POST request to the API
+      console.log('Creating theme:', newTheme);
+      
+      // Simulate API call delay
       setTimeout(() => {
+        // Redirect to themes page (in real app, would redirect to the new theme's content page)
         this.router.navigate(['/themes']);
-      }, 500)
-
-      // const response = this.postsService.createPost(this.themeName, this.postText);
-
-      // response.subscribe((post: Post) => {
-      //   if (post) {
-      //     this.router.navigate(['/themes']);
-      //   }
-      // })
+      }, 500);
     }
   }
 }

@@ -1,0 +1,63 @@
+<p>theme-content works!</p>
+<div class="theme-content">
+  <!-- theme-title -->
+  <div class="theme-title">
+    <div class="theme-name-wrapper">
+      <div class="theme-name">
+        <h2>{{ themeTitle }}</h2>
+        <p>Date: <time>{{ themeDate }}</time></p>
+      </div>
+      <div class="subscribers">
+        <p>Subscribers: <span>{{ subscribersCount }}</span></p>
+        @if (authService.isLoggedIn()) {
+        @if (isSubscribed) {
+        <button class="unsubscribe" (click)="toggleSubscribe()">Unsubscribe</button>
+        } @else {
+        <button class="subscribe" (click)="toggleSubscribe()">Subscribe</button>
+        }
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- comments -->
+  @for (comment of comments; track comment.id) {
+  <div class="comment">
+    <header class="header">
+      <p><span>{{ comment.author }}</span> posted on <time>{{ comment.date }}</time></p>
+    </header>
+    <div class="comment-main">
+      <div class="userdetails">
+        <img src="profile.png" alt="avatar">
+      </div>
+      <div class="post-content">
+        <p>{{ comment.text }}</p>
+      </div>
+    </div>
+    <div class="footer">
+      @if (authService.isLoggedIn()) {
+      <i class="fas fa-thumbs-up" (click)="likeComment(comment.id)" [class.liked]="comment.liked"></i>
+      <i class="fas fa-thumbs-down" (click)="dislikeComment(comment.id)" [class.disliked]="comment.disliked"></i>
+      }
+      <p><span>{{ comment.likes }}</span> likes</p>
+    </div>
+  </div>
+  }
+
+  <!-- add comment form -->
+  @if (authService.isLoggedIn()) {
+  <div class="answer-comment">
+    <p><span>{{ authService.currentUser()?.username }}</span> comment:</p>
+    <div class="answer">
+      <form (ngSubmit)="addComment()">
+        <textarea name="postText" id="comment" cols="30" rows="10" [(ngModel)]="newComment"
+          placeholder="Write your comment here..." [class.input-error]="commentError"></textarea>
+        @if (commentError) {
+        <p class="error">Comment is required and must be at least 10 characters long.</p>
+        }
+        <button type="submit" [disabled]="!isCommentValid()">Post</button>
+      </form>
+    </div>
+  </div>
+  }
+</div>

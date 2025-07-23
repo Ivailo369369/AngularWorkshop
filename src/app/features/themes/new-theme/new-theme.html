@@ -5,21 +5,21 @@
     <form (ngSubmit)="onSubmit()">
         <div class="new-theme-title">
             <label for="themeName">Title <span class="red">*</span></label>
-            <input [class.input-error]="themeNameError" type="text" name="themeName" id="themeName"
-                [(ngModel)]="themeName" (blur)="validateThemeName()">
-            @if (themeNameError) {
+            <input [class.input-error]="titleError" type="text" name="themeName" id="themeName" [(ngModel)]="themeName"
+                (blur)="validateTitle()">
+            @if (titleError) {
             <p class="error">
-                {{ themeNameErrorMessage }}
+                {{ titleErrorMessage }}
             </p>
             }
         </div>
         <div class="new-theme-content">
             <label for="postText">Post <span class="red">*</span></label>
-            <textarea [class.input-error]="postTextError" type="text" name="postText" id="postText" rows="8"
-                class="height" [(ngModel)]="postText" (blur)="validatePostText()"></textarea>
-            @if (postTextError) {
+            <textarea [class.input-error]="contentError" type="text" name="postText" id="postText" rows="8"
+                class="height" [(ngModel)]="postText" (blur)="validateContent()"></textarea>
+            @if (contentError) {
             <p class="error">
-                {{ postTextErrorMessage }}
+                {{ contentErrorMessage }}
             </p>
             }
         </div>

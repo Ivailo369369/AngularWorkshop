@@ -17,6 +17,7 @@ export class ThemeBoard {
   private authService = inject(AuthService);
   readonly isLoggedIn = this.authService.isLoggedIn;
 
+  themeId: string = '5fa64a9f2183ce1728ff371a';
   themes$: Observable<Theme[]>;
   posts$: Observable<Post[]>;
 

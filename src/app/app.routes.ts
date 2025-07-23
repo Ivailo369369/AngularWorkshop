@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { NotFound } from './shared/components/not-found/not-found';
+import { ThemeContent } from './features/themes';
 
 export const routes: Routes = [
     {
@@ -24,12 +25,22 @@ export const routes: Routes = [
         loadComponent: () => import('./features/themes/theme-board/theme-board').then(c => c.ThemeBoard)
     },
     {
+        path: 'themes/:id',
+        component: ThemeContent
+        // loadComponent: () => import('./features/themes/theme-content/theme-content').then(c => c.ThemeContent)
+    },
+    {
         path: 'add-theme',
         loadComponent: () => import('./features/themes/new-theme/new-theme').then(c => c.NewTheme)
     },
     {
         path: 'profile',
         loadComponent: () => import('./features/profile/profile').then(c => c.Profile)
+    },
+    {
+        path: 'logout',
+        redirectTo: '/home',
+        pathMatch: 'full'
     },
     {
         path: '**',

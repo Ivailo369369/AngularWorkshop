@@ -1,7 +1,7 @@
 <div class="theme-container">
     <div class="theme-name-wrapper">
         <div class="theme-name">
-            <a href="#" class="normal">
+            <a routerLink="/themes/{{theme.id}}" class="normal">
                 <h2>{{theme.themeName}} </h2>
             </a>
             <div class="columns">
@@ -12,7 +12,13 @@
                     </div>
                 </div>
                 <div class="subscribers">
-                    <!-- <button class="subscribe">Subscribe</button> -->
+                    @if (isLoggedIn && theme.userId.id !== currentUserId) {
+                        @if (isSubscribed(theme.id)) {
+                            <button class="unsubscribe" (click)="toggleSubscribe(theme.id)">Unsubscribe</button>
+                        } @else {
+                            <button class="subscribe" (click)="toggleSubscribe(theme.id)">Subscribe</button>
+                        }
+                    }
                     <p>Subscribers: <span>{{theme.subscribers.length}}</span></p>
                 </div>
             </div>
