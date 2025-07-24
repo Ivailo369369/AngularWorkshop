@@ -23,8 +23,8 @@ export class Register implements AfterViewInit {
       phone: [''],
       passwords: this.formBuilder.group({
         password: ['', [Validators.required, Validators.minLength(5), Validators.pattern(/^[a-zA-Z0-9]+$/)]],
-        rePassword: ['', [Validators.required, this.passwordMatchValidator]],
-      })
+        rePassword: ['', Validators.required]
+      }, { validators: this.passwordMatchValidator })
     })
   }
 
