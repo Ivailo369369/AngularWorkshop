@@ -16,7 +16,13 @@ export class Header {
   readonly currentUser = this.authService.currentUser;
 
   logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/home']);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        console.log('Logout failed', err);
+      }
+    });
   }
 }

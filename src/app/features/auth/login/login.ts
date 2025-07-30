@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../core/services';
 import { Router, RouterLink } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class Login implements AfterViewInit {
+export class Login {
   private authService = inject(AuthService);
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
@@ -21,10 +21,6 @@ export class Login implements AfterViewInit {
       email: ['', [Validators.required, Validators.pattern(/^(?=.{6,})[a-zA-Z][a-zA-Z0-9._-]*@gmail\.(com|bg)$/)]],
       password: ['', [Validators.required, Validators.minLength(5)]],
     });
-  }
-
-  ngAfterViewInit(): void {
-    console.dir(this.loginForm);
   }
 
   get email(): AbstractControl<any, any> | null {
@@ -71,13 +67,16 @@ export class Login implements AfterViewInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
-      const response = this.authService.login(email, password);
+      this.authService.login(email, password).subscribe({
+        next: () => {
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          console.log('Login failed', err);
 
-      if (response === true) {
-        this.router.navigate(['/home']);
-      } else {
-        this.markFormGroupTouched();
-      }
+          this.markFormGroupTouched();     
+        }
+      });
     }
   }
 

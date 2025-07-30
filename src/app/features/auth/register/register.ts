@@ -135,18 +135,20 @@ export class Register implements AfterViewInit {
 
       console.log(username);
 
-      const response = this.authService.register(
+      this.authService.register(
         username,
         email,
         phone,
         password,
-        rePassword);
-
-      if (response === true) {
-        this.router.navigate(['/home']);
-      } else {
-        this.markFormGroupTouched();
-      }
+        rePassword).subscribe({
+          next: () => {
+            this.router.navigate(['/home']);
+          },
+          error: (err) => {
+            console.log('Registration failed', err)
+            this.markFormGroupTouched();
+          }
+        })
     }
   }
 
