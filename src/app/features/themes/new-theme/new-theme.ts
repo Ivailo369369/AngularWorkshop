@@ -61,22 +61,17 @@ export class NewTheme {
     this.validateContent();
 
     if (this.isFormValid()) {
-      // Create theme object
-      const newTheme = {
-        themeName: this.themeName,
-        postText: this.postText,
-        userId: this.authService.getCurrentUserId()
-      };
-
-      // For now, we'll simulate a successful creation and redirect
-      // In a real app, this would be a POST request to the API
-      console.log('Creating theme:', newTheme);
-      
-      // Simulate API call delay
-      setTimeout(() => {
-        // Redirect to themes page (in real app, would redirect to the new theme's content page)
-        this.router.navigate(['/themes']);
-      }, 500);
+      this.themesService.createTheme(
+        this.themeName, 
+        this.postText)
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/themes'])
+          },
+          error: (err) => {
+            console.log('New theme failed', err);
+          }
+        });
     }
   }
 }
